@@ -1,0 +1,132 @@
+{
+    "tables": {
+        "RequestLogs": {
+            "tableName": "RequestLogs",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "routePath": {
+                    "allowNull": false,
+                    "field": "routePath",
+                    "seqType": "Sequelize.STRING"
+                },
+                "routeMethod": {
+                    "allowNull": false,
+                    "field": "routeMethod",
+                    "seqType": "Sequelize.STRING"
+                },
+                "params": {
+                    "field": "params",
+                    "seqType": "Sequelize.JSON"
+                },
+                "query": {
+                    "field": "query",
+                    "seqType": "Sequelize.JSON"
+                },
+                "body": {
+                    "field": "body",
+                    "seqType": "Sequelize.JSON"
+                },
+                "isError": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": false
+                    },
+                    "field": "isError",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "result": {
+                    "field": "result",
+                    "seqType": "Sequelize.JSON"
+                },
+                "ip": {
+                    "field": "ip",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "UserId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "UserId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "Users": {
+            "tableName": "Users",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "firstName": {
+                    "allowNull": false,
+                    "field": "firstName",
+                    "seqType": "Sequelize.STRING"
+                },
+                "lastName": {
+                    "field": "lastName",
+                    "seqType": "Sequelize.STRING"
+                },
+                "email": {
+                    "allowNull": false,
+                    "unique": true,
+                    "field": "email",
+                    "seqType": "Sequelize.STRING"
+                },
+                "passwordHash": {
+                    "allowNull": false,
+                    "field": "passwordHash",
+                    "seqType": "Sequelize.STRING"
+                },
+                "role": {
+                    "field": "role",
+                    "seqType": "Sequelize.ENUM('ADMIN', 'MODERATOR')"
+                },
+                "deleted": {
+                    "defaultValue": {
+                        "value": false
+                    },
+                    "allowNull": false,
+                    "field": "deleted",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        }
+    },
+    "revision": 1
+}

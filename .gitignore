@@ -1,0 +1,6 @@
+node_modules
+.idea
+.vscode
+ecosystem.config.js
+app/static/*
+!app/static/.gitkeep

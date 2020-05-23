@@ -1,5 +1,10 @@
 'use strict'
 
+/**
+ * Initializes all app modules
+ * @module Init
+ */
+
 const models = require('../models'),
   Services = require('../services'),
   config = require('./config.js'),

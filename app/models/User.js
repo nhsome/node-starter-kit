@@ -1,5 +1,9 @@
 'use strict'
 
+/**
+ * @module UserModel
+ */
+
 const Roles = require('../kernel/Roles')
 
 module.exports = (sequelize, DataTypes) => {

@@ -1,5 +1,9 @@
 'use strict'
 
+/**
+ * @module RequestLogModel
+ */
+
 module.exports = (sequelize, DataTypes) => {
   const RequestLog = sequelize.define(
     'RequestLog',

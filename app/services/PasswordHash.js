@@ -2,7 +2,13 @@
 
 const bcrypt = require('bcrypt')
 
+/**
+ * Work with hashes
+ */
 class PasswordHash {
+  /**
+   * @param {Number} saltRounds
+   */
   constructor({ saltRounds = 10 } = {}) {
     this.saltRounds = saltRounds
   }

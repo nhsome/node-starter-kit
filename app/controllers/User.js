@@ -2,6 +2,9 @@ const Controller = require('./Base'),
   HttpError = require('standard-http-error'),
   Roles = require('../kernel/Roles')
 
+/**
+ * Provides users for API
+ */
 class User extends Controller {
   show(req) {
     const options = {

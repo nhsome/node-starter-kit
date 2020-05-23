@@ -1,5 +1,10 @@
 'use strict'
 
+/**
+ * Resolves IP address
+ * @module ResolveIp
+ */
+
 function _getIp(req) {
   let ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.connection.remoteAddress
 

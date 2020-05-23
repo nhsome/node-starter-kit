@@ -29,9 +29,6 @@ class Controller {
   }
 
   /**
-   * @typedef { import('sequelize').FindAndCountOptions } FindAndCountOptions
-   */
-  /**
    * @param req
    * @returns {FindAndCountOptions}
    * @protected

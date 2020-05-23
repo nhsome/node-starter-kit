@@ -1,6 +1,12 @@
 'use strict'
 
+/**
+ * Helps to working with rabbitMQ
+ */
 class RabbitHelper {
+  /**
+   * @param rabbitConnection
+   */
   constructor(rabbitConnection) {
     this.rabbitConnection = rabbitConnection
   }

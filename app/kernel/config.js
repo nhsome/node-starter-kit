@@ -1,3 +1,10 @@
+'use strict'
+
+/**
+ * Configuration of application
+ * @module Config
+ */
+
 const createLogger = require('./createLogger')
 
 const logger = createLogger()

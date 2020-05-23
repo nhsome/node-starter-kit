@@ -1,3 +1,8 @@
+/**
+ * Provides CLI for application
+ * @module Console
+ */
+
 const argv = require('minimist')(process.argv.slice(2)),
   commandsMap = require('./commandsMap'),
   init = require('../kernel/init')

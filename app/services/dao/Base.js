@@ -1,9 +1,20 @@
 'use strict'
 
+/**
+ * Dao validation error
+ * @extends Error
+ */
 class DaoValidationError extends Error {
 }
 
+/**
+ * Data access objects base class. Use it for CRUD models.
+ */
 class Dao {
+  /**
+   * @param {Object} models
+   * @param {String} modelName
+   */
   constructor(models, modelName) {
     this.models = models
     this.modelName = modelName

@@ -1,11 +1,18 @@
 const jwt = require('jsonwebtoken'),
   _ = require('lodash')
 
+/**
+ * Provides auth by JWT protocol
+ */
 class AuthJwt {
   static get TOKEN_ALGORITHM() {
     return 'HS256'
   }
 
+  /**
+   * @param {String} jwtSecret
+   * @param {Number} maxAge
+   */
   constructor(jwtSecret, maxAge) {
     this.jwtSecret = jwtSecret
     this.maxAge = maxAge

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: kernel/Router.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: kernel/Router.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const routes = require('./routes.js'),
+  HttpError = require('standard-http-error'),
+  { DaoValidationError } = require('../services/dao/Base')
+
+/**
+ * Router for http server's requests
+ */
+class Router {
+  constructor(server, initObj) {
+    this.server = server
+    this.initObj = initObj
+    this.services = this.initObj.services
+    this.logger = this.initObj.logger
+    this.config = this.initObj.config
+  }
+
+  /**
+   * @returns {void}
+   */
+  addEventsListeners() {
+    routes.forEach((route) => {
+      let Controller = require('../controllers/' + route.controller)
+      let controller = new Controller(this.initObj)
+
+      route.path = (this.config.indexRoute || '') + route.path
+
+      this.server[route.method](route.path, async (req, res, next) => {
+        let result, error
+        try {
+          await this._setUser(req, route)
+          result = controller[route.action](req, res, next)
+          await this._sendResponse(result, res)
+        } catch(err) {
+          error = this._handleError(err, res)
+        }
+
+        if (route.log) {
+          this._logRequest(route, req, error, result)
+            .catch(this.logger.error)
+        }
+      })
+    })
+  }
+
+  /**
+   * @param {any} actionResult
+   * @param {Object} res
+   * @returns {Promise&lt;void>}
+   * @private
+   */
+  async _sendResponse(actionResult, res) {
+    if (typeof actionResult.then === 'function') {
+      //is Promise
+      actionResult = await actionResult
+      if (!res.headersSent) res.send(actionResult)
+    } else {
+      if (!res.headersSent) res.send(actionResult)
+    }
+  }
+
+  /**
+   * @param {Object} route
+   * @param {Object} req
+   * @param {Error|undefined} error
+   * @param {any} result
+   * @returns {Promise&lt;void>}
+   * @private
+   */
+  async _logRequest(route, req, error, result) {
+    let lresult = error
+      ? error
+      : route.logSuccessResult !== undefined &amp;&amp; !route.logSuccessResult ? null : result
+    return this.services.requestsLogger.log(route, req, lresult, {
+        isError: Boolean(error),
+        logBody: route.logBody !== undefined ? route.logBody : true
+      })
+  }
+
+  /**
+   * @param {Object} req
+   * @param {Object} route
+   * @returns {Promise&lt;void>}
+   * @private
+   */
+  async _setUser(req, route) {
+    let token = req.headers.authorization
+    token = token ? token.replace('Bearer ', '') : token
+
+    try {
+      let decodedToken = await this.services.authJwt.verifyToken(token)
+      req.user = decodedToken.data
+    } catch(e) {
+      if (!route.accessible.length) return
+      throw new HttpError(401, 'Invalid auth token provided.')
+    }
+    if (!Router._isUserHasAcess(route, req.user)) throw new HttpError(403, 'You are not have permissions')
+  }
+
+  /**
+   * @param {Object} route
+   * @param {Model} user
+   * @returns {boolean}
+   * @private
+   */
+  static _isUserHasAcess(route, user) {
+    if (!route.accessible.length) return true
+    if (!user) return false
+    return (route.accessible.indexOf(user.role) !== -1)
+  }
+
+  /**
+   * @param {Error} err
+   * @param {Object} res
+   * @returns {{code: Number, message: String}}
+   * @private
+   */
+  _handleError(err, res) {
+    let code = 500
+    let message = err.message
+    if (err.name === 'SequelizeValidationError' || err.name === 'SequelizeUniqueConstraintError') {
+      code = 400
+      message = err.errors[0] ? err.errors[0].message : err.message
+    } else if (err instanceof HttpError) {
+      code = 400
+    } else if (err instanceof DaoValidationError) {
+      code = 400
+    }
+
+    if (code === 500) {
+      this.logger.error(err)
+    } else {
+      this.logger.warn(err)
+    }
+
+    res.status(code)
+      .send({ error: message })
+    return { code, message }
+  }
+}
+
+module.exports = Router
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-CommandsMap.html">CommandsMap</a></li><li><a href="module-Config.html">Config</a></li><li><a href="module-Console.html">Console</a></li><li><a href="module-CORS.html">CORS</a></li><li><a href="module-DAO.html">DAO</a></li><li><a href="module-HttpServer.html">HttpServer</a></li><li><a href="module-Init.html">Init</a></li><li><a href="module-InitWorker.html">InitWorker</a></li><li><a href="module-Main.html">Main</a></li><li><a href="module-Models.html">Models</a></li><li><a href="module-RequestLogModel.html">RequestLogModel</a></li><li><a href="module-ResolveIp.html">ResolveIp</a></li><li><a href="module-Routes.html">Routes</a></li><li><a href="module-Services.html">Services</a></li><li><a href="module-UserModel.html">UserModel</a></li></ul><h3>Classes</h3><ul><li><a href="Auth.html">Auth</a></li><li><a href="AuthJwt.html">AuthJwt</a></li><li><a href="Command.html">Command</a></li><li><a href="Dao.html">Dao</a></li><li><a href="DaoValidationError.html">DaoValidationError</a></li><li><a href="Main.html">Main</a></li><li><a href="MainHelper.html">MainHelper</a></li><li><a href="ModelHelper.html">ModelHelper</a></li><li><a href="PasswordHash.html">PasswordHash</a></li><li><a href="RabbitHelper.html">RabbitHelper</a></li><li><a href="RequestsLogger.html">RequestsLogger</a></li><li><a href="Roles.html">Roles</a></li><li><a href="Router.html">Router</a></li><li><a href="User.html">User</a></li><li><a href="Worker.html">Worker</a></li></ul><h3>Global</h3><ul><li><a href="global.html#info">info</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sat May 23 2020 15:45:24 GMT+0300 (GMT+03:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

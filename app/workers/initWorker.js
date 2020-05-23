@@ -1,5 +1,10 @@
 const init = require('../kernel/init')
 
+/**
+ * Initializes worker class
+ * @module InitWorker
+ */
+
 module.exports = function(WorkerClass, callback) {
   (async function() {
     const initObj = await init()

@@ -1,5 +1,8 @@
 'use strict'
 
+/**
+ * Base class for rabbitMQ worker
+ */
 class Worker {
   constructor({ config, models, rabbitConnection, services, logger }) {
     this.models = models
@@ -43,7 +46,11 @@ class Worker {
     }, { noAck: false })
   }
 
-  // execute method must be implemented
+  /**
+   * Execute method must be implemented in children class
+   * @param {Object} channel
+   * @param {Object} message
+   */
   execute(channel, message) {
     throw new Error(`Execute method must be implement for queue ${ this.qname }`)
   }

@@ -1,5 +1,10 @@
 'use strict'
 
+/**
+ * Initializes http server server
+ * @module HttpServer
+ */
+
 const express = require('express'),
   bodyParser = require('body-parser'),
   cors = require('./middlewares/cors'),

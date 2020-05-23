@@ -46,3 +46,65 @@
 	 --one          Do not run next migrations
 	 --list (-l)    Show migration file list (without execution)
 	 --help         Show this message
+
+## Default API Requests:
+
+- **Login by password:**
+	 
+	 	 POST /api/1.0/login
+	 	 Host: localhost:8080
+	 	 Content-Type: application/json
+     
+	 	 {
+	 	    "email": "user@example.com",
+	 	    "password": "password"
+	 	 }
+	 	 
+- **Login by sso token:**
+
+	 	 POST /api/1.0/login
+	 	 Host: localhost:8080
+	 	 Content-Type: application/json
+	 	 
+	 	 {
+	 	   "sso_token": "token"
+	 	 }
+
+- **Who am i:**
+
+	 	 GET /api/1.0/whoami HTTP/1.1
+	 	 Host: localhost:8080
+	 	 Authorization: Bearer <token>
+
+- **Create local user:**
+
+	 	 POST /api/1.0/user
+	 	 Host: localhost:8080
+	 	 Content-Type: application/json
+	 	 Authorization: Bearer <token>
+
+	 	 {
+	 	 	"email": "user@example.com",
+	 	 	"firstName": "Ivan",
+	 	 	"lastName": "Pupkin",
+	 	 	"password": "password",
+	 	 	"role": "MODERATOR"
+	 	 }
+
+- **Update local user:**
+
+	 	 PUT /api/1.0/user/:id
+	 	 Host: localhost:8080
+	 	 Content-Type: application/json
+	 	 Authorization: Bearer <token>
+
+	 	 {
+	 	 	"firstName": "Ivanna",
+	 	 	"role": "ADMIN"
+	 	 }
+	 	 
+- **Get local users:**
+
+	 	 GET /api/1.0/users
+	 	 Host: localhost:8080
+	 	 Authorization: Bearer <token>

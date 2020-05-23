@@ -1,5 +1,10 @@
 'use strict'
 
+/**
+ * Initializes services
+ * @module Services
+ */
+
 const RabbitHelper = require('./RabbitHelper'),
   PasswordHash = require('./PasswordHash'),
   AuthJwt = require('./AuthJwt'),

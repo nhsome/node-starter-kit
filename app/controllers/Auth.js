@@ -3,6 +3,9 @@
 const Controller = require('./Base'),
   HttpError = require('standard-http-error')
 
+/**
+ * Provides auth through JWT
+ */
 class Auth extends Controller {
   async authVerify(req) {
     const user = await this.models.User.findOne({

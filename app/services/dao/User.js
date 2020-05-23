@@ -2,6 +2,9 @@
 
 const { Dao, DaoValidationError } = require('./Base')
 
+/**
+ * User data access objects class
+ */
 class User extends Dao {
   constructor(models, modelName, passwordHash) {
     super(models, modelName)

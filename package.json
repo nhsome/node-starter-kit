@@ -8,7 +8,8 @@
     "dev": "pm2 reload ecosystem.config.js --env development && pm2 logs",
     "start": "pm2 reload ecosystem.config.js --env production",
     "migrations": "cd app/ && node ./../node_modules/sequelize-auto-migrations/bin/runmigration",
-    "makemigration": "cd app/ && node ./../node_modules/sequelize-auto-migrations/bin/makemigration"
+    "makemigration": "cd app/ && node ./../node_modules/sequelize-auto-migrations/bin/makemigration",
+    "docs": "./node_modules/jsdoc/jsdoc.js -c ./.jsdoc.conf.json ./README.md"
   },
   "author": "Alex Shor (nhsome)",
   "license": "ISC",
@@ -29,5 +30,8 @@
     "sequelize-auto-migrations": "github:nhsome/sequelize-auto-migrations#1.0",
     "standard-http-error": "^2.0.1",
     "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.6.4"
   }
 }

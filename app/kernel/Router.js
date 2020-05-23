@@ -2,6 +2,9 @@ const routes = require('./routes.js'),
   HttpError = require('standard-http-error'),
   { DaoValidationError } = require('../services/dao/Base')
 
+/**
+ * Router for http server's requests
+ */
 class Router {
   constructor(server, initObj) {
     this.server = server

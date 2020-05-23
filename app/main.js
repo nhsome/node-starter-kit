@@ -1,5 +1,10 @@
 'use strict'
 
+/**
+ * Points of entry for http server
+ * @module Main
+ */
+
 const server = require('./kernel/server'),
   init = require('./kernel/init'),
   Router = require('./kernel/Router');

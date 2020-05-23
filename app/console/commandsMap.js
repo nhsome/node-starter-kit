@@ -1,3 +1,8 @@
+/**
+ * Provides CLI configuration
+ * @module CommandsMap
+ */
+
 const COMMANDS_DIR = '../commands'
 
 module.exports = {

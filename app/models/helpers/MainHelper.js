@@ -2,15 +2,10 @@
 
 const Helper = require('./Base')
 
+/**
+ * Main models helper
+ */
 class MainHelper extends Helper {
-  /**
-   * @typedef { import('sequelize').Transaction } Transaction
-   */
-
-  /**
-   * @typedef { import('sequelize').Model } Model
-   */
-
   /**
    *
    * @param {String} model (name of model)

@@ -1,5 +1,8 @@
 'use strict'
 
+/**
+ * Provides user's roles
+ */
 class Roles {
   /**
    * @returns {String}

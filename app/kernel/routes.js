@@ -1,5 +1,10 @@
 'use strict'
 
+/**
+ * Routes for http server
+ * @module Routes
+ */
+
 const Roles = require('./Roles.js'),
   ALL_ROLES = Roles.ALL
 

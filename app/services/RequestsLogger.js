@@ -1,5 +1,8 @@
 'use strict'
 
+/**
+ * Logs http requests to database
+ */
 class RequestsLogger {
   constructor(models) {
     this.models = models

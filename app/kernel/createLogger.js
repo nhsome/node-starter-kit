@@ -1,5 +1,10 @@
 const winston = require('winston')
 
+/**
+ * Creates winston logger
+ * @function
+ * @returns {Logger}
+ */
 module.exports = function createLogger() {
   const format = winston.format
 

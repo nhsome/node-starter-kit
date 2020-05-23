@@ -1,4 +1,8 @@
-## Node Starter Kit
+# Node Starter Kit
+
+## Usage:
+
+**For development use CLI: https://github.com/nhsome/nsk-cli**
 
 **Requirements:**
 
